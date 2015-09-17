@@ -5,41 +5,55 @@ module Template where
 
 import Data.List
 
--- 1.a
+-- The null function is for checking whether a list is an empty list or not.
+-- input list, output boolean
 
-null' x = x
+iskosong x = if null x then "list kosong" else "list tidak kosong"
+a = iskosong [1, 2, 3]
+b = iskosong []
 
---pembatas
+-- the take function is for taking the data number n, n+1, and so on in a list.
+-- input integer, list; output list
 
-take' x = x
+c = take 3 [3, 4, 5, 6] -- the value of c is [3, 4, 5] because 6 is data no 3 (numbering start from zero)
+d = take 1 [3, 4, 5, 6] -- the value of d is [3] because 4, 5, 6, is data no 1, 2, 3
 
---pembatas
+-- the drop function is for taking the data number n, n-1, and so on in a list.
+-- input integer, list; output list
 
-drop' x = x
+e = drop 0 [2, 3, 4] -- e = [2,3,4]
+f = drop 1 [2, 3, 4] -- f = [3,4]
+h = drop 3 [2, 3, 4] -- h = []
 
---pembatas
+-- return the first value of a #IdontKnowTheName
 
-fst' x = x
+i = fst (1, 2) -- return 1
+j = fst ('f', 'g') -- return 'f'
+k = fst ("wisnu", "ops") -- return "wisnu"
 
---pembatas
+-- return the second value of a #IdontKnowTheName
 
-snd' x = x
+l = snd (1, 2) -- return 2
 
---pembatas
+-- I am still not sure whether lambda function is the only available input for the map function.
+-- If it's true, then map is a function that map a list itu another list by using a function.
+-- input function and a list, output list.
 
-map' x = x
+m = map (\ x -> x*x) [2, 3]
 
---pembatas
+-- The filter function is to filter whether the domain that only applies on certain condition.
 
-filter' x = x
+o = filter (\ x -> x>0) [(-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.
 
---pembatas
+-- delete a datum from a list
+-- input the datum, output list
 
-delete' x = x
+p = delete 2 [1, 2, 3] -- returns [1, 3] because '2' is deleted
+q = delete 1 [1, 2, 3] -- returns [2, 3] because '1' is deleted
 
---pembatas
+-- create deleteAll by using take function
 
-deleteAll' x = x
+deleteAll a = take 0 a -- returns an empty list [].
 
 --pembatas
 

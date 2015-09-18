@@ -35,15 +35,15 @@ filter' x = x
 
 --pembatas
 
-delete' x = x
+--delete' x = x
 
 --pembatas
 
-deleteAll' x = x
+--deleteAll' x = x
 
 --pembatas
 
-foldl' x = x
+foldl (\ x y -> y) 3 [2, 3, 4]
 
 --pembatas
 
@@ -51,11 +51,11 @@ foldl1' x = x
 
 --pembatas
 
-zip' x = x
+a = zip [2, 3, 4] [6, 7, 8] -- returns [(2,6),(3,7),(4,8)]
 
 --pembatas
 
-zipWith' x = x
+b = zipWith (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
 
 --pembatas
 
@@ -71,91 +71,96 @@ scanl1' x = x
 
 --pembatas
 
-elem' x = x
+elem 2 [1, 2, 3, 4] -- returns True
+elem 2 [1, 3, 4] -- returns False
 
 --pembatas
 
-notElem' x = x
+notElem 2 [1, 2, 3, 4] -- returns False
+notElem 2 [1, 3, 4] -- returns True
+
 
 --pembatas
 
-head' x = x
+head [2, 3, 4, 5] -- returns 2
 
 --pembatas
 
-length' x = x
+length [3, 4, 5, 6] -- returns 4
 
 --pembatas
 
-reverse' x = x
+reverse [1, 2, 3, 4] -- returns [4, 3, 2, 1]
 
 --pembatas
 
-last' x = x
+last [3, 4, 5, 6] -- returns 6
 
 --pembatas
 
-tail' x = x
+tail [3, 4, 5, 6] -- returns [4, 5, 6]
 
 --pembatas
 
-init' x = x
+init [3, 4, 5, 6] -- returns [3, 4, 5]
 
 --pembatas
 
-max' x = x
+max 8 4 -- returns 8
 
 --pembatas
 
-min' x = x
+min 8 4 -- returns 4
 
 --pembatas
 
-concat' x = x
+concat ["wisnu", "sima"] -- returns "wisnusima"
+concat [[1, 2], [5, 6]] -- returns [1,2,5,6]
 
 --pembatas
 
-intersperse' x = x
+intersperse 'a' "qrtgd" -- returns "qaratagad"
+intersperse 2 [1, 3, 4, 6, 7] -- returns [1,2,3,2,4,2,6,2,7]
 
 --pembatas
 
-intercalate' x = x
+intercalate "wisnu" ["zhuge", "sima", "ina"] -- returns "zhugewisnusimawisnuina"
 
 --pembatas
 
-and' x = x
+and [True, False, True] -- returns False
 
 --pembatas
 
-or' x = x
+or [True, False, True] -- returns True
 
 --pembatas
 
-zip3' x = x
+zip3 "abcd" "efgh" "ijkl" -- returns [('a','e','i'),('b','f','j'),('c','g','k'),('d','h','l')]
 
 --pembatas
 
-sum' x = x
+sum [1, 2, 4] -- returns 7
 
 --pembatas
 
-product' x = x
+product [1, 2, 4] -- returns 8
 
 --pembatas
 
-words' x = x
+words "wisnu oktobrie putra subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
 
 --pembatas
 
-lines' x = x
+lines "wisnu\nina\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
 
 --pembatas
 
-unlines' x = x
+unlines ["wisnu","ina","zhuge","sima"] -- returns "wisnu\nina\nzhuge\nsima\n"
 
 --pembatas
 
-unwords' x = x
+unwords ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie putra subekti"
 
 --pembatas
 
@@ -167,73 +172,79 @@ dropWhile' x = x
 
 --pembatas
 
-concatMap' x = x
+concatMap (\ x -> [2*x, 3*x]) [2, 3] -- returns [4,6,6,9]
 
 --pembatas
 
-all' x = x
+all (\ x -> x==1) [1, 2, 3, 4] -- returns False
+all (\ x -> x==1) [1, 1, 1, 1] -- returns True
 
 --pembatas
 
-any' x = x
+any (\ x -> x==1) [1, 2, 3, 4] -- returns True
+any (\ x -> x==1) [2, 3, 4] -- returns False
 
 --pembatas
 
-insert' x = x
+insert 'a' "lsdkjasf" -- returns "alsdkjasf"
 
 --pembatas
 
-zipWith3' x = x
+zipWith3 (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
 
 --pembatas
 
 -- 1.b
 
-nub' x = x
+nub "sdskjls" -- reutrns "sdkjl"
 
 --pembatas
 
-sort' x = x
+sort "sokwjfweg" -- returns "efgjkosww"
 
 --pembatas
 
-minimum' x = x
+minimum "oikjwkefwef" -- returns 'e'
 
 --pembatas
 
-maximum' x = x
+maximum "oikjwkefwef" -- returns 'w'
 
 --pembatas
 
-inits' x = x
+inits "wlkfjqiomg" -- returns ["","w","wl","wlk","wlkf","wlkfj","wlkfjq","wlkfjqi","wlkfjqio","wlkfjqiom","wlkfjqiomg"]
 
 --pembatas
 
-tails' x = x
+tails "wlkfjqiomg" -- reutns ["wlkfjqiomg","lkfjqiomg","kfjqiomg","fjqiomg","jqiomg","qiomg","iomg","omg","mg","g",""]
 
 --pembatas
 
-union' x = x
+union "wisnu " "oktobrie" -- returns "wisnu oktbre"
 
 --pembatas
 
-intersect' x = x
+intersect "slkdjs" "qokfc" -- returns "k"
+intersect "qlqkncnqtnslewt" "snqw veefkje" -- returns "qqknnqnsew"
 
 --pembatas
 
-group' x = x
+group "slkjsvsmvks" -- returns ["s","l","k","j","s","v","s","m","v","k","s"]
+group [3, 4, 6,67,7] -- returns [[3],[4],[6],[67],[7]]
 
 --pembatas
 
-splitAt' x = x
+splitAt 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
 
 --pembatas
 
-partition' x = x
+partition (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
+partition (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])
 
 --pembatas
 
-replicate' x = x
+replicate 2 4 -- returns [4,4]
+replicate 10 'f' -- returns "ffffffffff"
 
 --pembatas
 -- First Assignment

@@ -1,4 +1,4 @@
--- First Assignment
+ -- First Assignment
 -- Reimplement Haskell function
 -- DON'T USE GOOGLE
 module Template where
@@ -8,32 +8,42 @@ import Data.List
 -- The null function is for checking whether a list is an empty list or not.
 -- input list, output boolean
 
-iskosong x = if null x then "list kosong" else "list tidak kosong"
-a = iskosong [1, 2, 3]
-b = iskosong []
+null' x = if x == [] then True else False
 
 -- the take function is for taking the data number n, n+1, and so on in a list.
 -- input integer, list; output list
 
-c = take 3 [3, 4, 5, 6] -- the value of c is [3, 4, 5] because 6 is data no 3 (numbering start from zero)
-d = take 1 [3, 4, 5, 6] -- the value of d is [3] because 4, 5, 6, is data no 1, 2, 3
+take' 0 (a:as) = []
+take' x [] = []
+take' x (a:as) = a : (take' (pred x) as)
+
+-- I don't understand why there is an error in this definition:
+take'' x (a:as)
+  | x == 0 = []
+  | (a:as) == [] = [] -- <- it looks like this line doesn't work
+  | otherwise = a : (take'' (pred x) as)
 
 -- the drop function is for taking the data number n, n-1, and so on in a list.
 -- input integer, list; output list
+-- I created two ways of defining drop
 
-e = drop 0 [2, 3, 4] -- e = [2,3,4]
-f = drop 1 [2, 3, 4] -- f = [3,4]
-h = drop 3 [2, 3, 4] -- h = []
+drop' x [] = []
+drop' 0 y = y
+drop' x (y:ys) = drop' (pred x) ys
 
--- return the first value of a #IdontKnowTheName
+drop'' x y
+  | x < 1 = y
+  | y == [] = []
+  | otherwise = drop'' (pred x) b
+    where (a:b) = y
 
-i = fst (1, 2) -- return 1
-j = fst ('f', 'g') -- return 'f'
-k = fst ("wisnu", "ops") -- return "wisnu"
+-- return the first value of a tuple
 
--- return the second value of a #IdontKnowTheName
+fst' (a, b) = a
 
-l = snd (1, 2) -- return 2
+-- return the second value of a tuple
+
+snd' (a, b) = b
 
 -- I am still not sure whether lambda function is the only available input for the map function.
 -- If it's true, then map is a function that map a list itu another list by using a function.
@@ -51,9 +61,13 @@ o = filter (\ x -> x>0) [(-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 
 p = delete 2 [1, 2, 3] -- returns [1, 3] because '2' is deleted
 q = delete 1 [1, 2, 3] -- returns [2, 3] because '1' is deleted
 
--- create deleteAll by using take function
+delete' x (y:ys) = delete' x ys
+  | x == y = ys
+  |
 
-deleteAll a = take 0 a -- returns an empty list [].
+-- create deleteAll
+
+deleteAll a = []
 
 --pembatas
 

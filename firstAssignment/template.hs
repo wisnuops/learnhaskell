@@ -8,7 +8,7 @@ import Data.List
 -- The null function is for checking whether a list is an empty list or not.
 -- input list, output boolean
 
-null' x = if x == [] then True else False
+null' x = (x == [])
 
 -- the take function is for taking the data number n, n+1, and so on in a list.
 -- input integer, list; output list

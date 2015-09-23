@@ -49,24 +49,33 @@ snd' (a, b) = b
 -- If it's true, then map is a function that map a list itu another list by using a function.
 -- input function and a list, output list.
 
-m = map (\ x -> x*x) [2, 3]
-
 map' f [] = []
 map' f [x] = [(f x)]
 map' f (a:as) = (f a):(map' f as)
 
-testingmap = (map' (\x -> x*x) [3, 1, 2, 5, (-2)])
-testingmap2 = (map' (\x -> x*x) [3])
+a = (map' (\x -> x*x) [3, 1, 2, 5, (-2)])
+b = (map' (\x -> x*x) [3])
 
 -- The filter function is to filter whether the domain that only applies on certain condition.
 
-o = filter (\ x -> x>0) [(-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.
+filter' f dom
+  | dom == [] = []
+  | (f d) = d:(filter' f ds)
+  | otherwise = (filter' f ds)
+  where (d:ds) = dom
+
+c = filter' (\ x -> x>0) [4, (-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.
 
 -- delete a datum from a list
 -- input the datum, output list
 
-p = delete 2 [1, 2, 3] -- returns [1, 3] because '2' is deleted
-q = delete 1 [1, 2, 3] -- returns [2, 3] because '1' is deleted
+delete' a x
+  | x == [] = []
+  | a == b = (delete' a bs)
+  | otherwise = b:(delete' a bs)
+  where (b:bs) = x
+
+d = delete' 2 [4, 3, 1, 2, 3] -- returns [4, 3, 1, 3] because '2' is deleted
 
 -- delete' x (y:ys) = delete' x ys
 

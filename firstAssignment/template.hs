@@ -51,6 +51,13 @@ snd' (a, b) = b
 
 m = map (\ x -> x*x) [2, 3]
 
+map' f [] = []
+map' f [x] = [(f x)]
+map' f (a:as) = (f a):(map' f as)
+
+testingmap = (map' (\x -> x*x) [3, 1, 2, 5, (-2)])
+testingmap2 = (map' (\x -> x*x) [3])
+
 -- The filter function is to filter whether the domain that only applies on certain condition.
 
 o = filter (\ x -> x>0) [(-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.

@@ -103,9 +103,13 @@ zip' x y
 zip'' [] [] = []
 zip'' (a:as) (b:bs) = (a,b):(zip'' as bs)
 
---pembatas
+--zipWith nih:
 
-s = zipWith (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
+zipWith' f [] [] = []
+zipWith' f [x] [y] = [(f x y)]
+zipWith' f (x:xs) (y:ys) = (f x y):(zipWith' f xs ys)
+
+s = zipWith' (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
 
 --pembatas
 

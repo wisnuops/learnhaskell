@@ -34,8 +34,8 @@ drop' x (y:ys) = drop' (pred x) ys
 drop'' x y
   | x < 1 = y
   | y == [] = []
-  | otherwise = drop'' (pred x) b
-    where (a:b) = y
+  | otherwise = drop'' (pred x) as
+    where (a:as) = y
 
 -- return the first value of a tuple
 
@@ -61,9 +61,8 @@ o = filter (\ x -> x>0) [(-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 
 p = delete 2 [1, 2, 3] -- returns [1, 3] because '2' is deleted
 q = delete 1 [1, 2, 3] -- returns [2, 3] because '1' is deleted
 
-delete' x (y:ys) = delete' x ys
-  | x == y = ys
-  |
+-- delete' x (y:ys) = delete' x ys
+  -- | x == y = ys  |
 
 -- create deleteAll
 
@@ -80,6 +79,14 @@ foldl1' x = x
 --pembatas
 
 r = zip [2, 3, 4] [6, 7, 8] -- returns [(2,6),(3,7),(4,8)]
+zip' x y
+  | x == [] && y == [] = []
+  | otherwise = (a,b):(zip' as bs)
+  where (a:as) = x
+        (b:bs) = y
+
+zip'' [] [] = []
+zip'' (a:as) (b:bs) = (a,b):(zip'' as bs)
 
 --pembatas
 
@@ -87,7 +94,8 @@ s = zipWith (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 
 
 --pembatas
 
-nth' x = x
+nth' (a:as) 0 = a
+nth' (a:as) n = nth' as (pred n)
 
 --pembatas
 
@@ -102,18 +110,38 @@ scanl1' x = x
 t = elem 2 [1, 2, 3, 4] -- returns True
 u = elem 2 [1, 3, 4] -- returns False
 
+elem' a (y:ys)
+  | a == y = True
+  | ys == [] = False
+  | otherwise = elem' a ys
+
 --pembatas
 
 v = notElem 2 [1, 2, 3, 4] -- returns False
 w = notElem 2 [1, 3, 4] -- returns True
 
+notElem' a (y:ys)
+  | a == y = False
+  | ys == [] = True
+  | otherwise = notElem' a ys
+
 --pembatas
 
 x = head [2, 3, 4, 5] -- returns 2
 
+head' (a:as) = a
+
 --pembatas
 
 y = length [3, 4, 5, 6] -- returns 4
+
+length' [] = 0
+length' (a:as) = 1 + (length' as)
+
+length'' x
+  | x == [] = 0
+  | otherwise = 1 + (length' as)
+  where (a:as) = x
 
 --pembatas
 

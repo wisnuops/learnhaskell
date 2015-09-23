@@ -61,9 +61,9 @@ o = filter (\ x -> x>0) [(-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 
 p = delete 2 [1, 2, 3] -- returns [1, 3] because '2' is deleted
 q = delete 1 [1, 2, 3] -- returns [2, 3] because '1' is deleted
 
-delete' x (y:ys) = delete' x ys
-  | x == y = ys
-  |
+-- delete' x (y:ys) = delete' x ys
+--  | x == y = ys
+--  |
 
 -- create deleteAll
 
@@ -119,6 +119,9 @@ y = length [3, 4, 5, 6] -- returns 4
 
 z = reverse [1, 2, 3, 4] -- returns [4, 3, 2, 1]
 
+--reverse' x
+--  | =
+
 --pembatas
 
 aa = last [3, 4, 5, 6] -- returns 6
@@ -127,22 +130,40 @@ aa = last [3, 4, 5, 6] -- returns 6
 
 bb = tail [3, 4, 5, 6] -- returns [4, 5, 6]
 
+tail' (a:as) = as
+
 --pembatas
 
 cc = init [3, 4, 5, 6] -- returns [3, 4, 5]
+
+init' (x:xs)
+  | xs == [] = []
+  | otherwise = x:(init' xs)
 
 --pembatas
 
 dd = max 8 4 -- returns 8
 
+max' a b
+  | a >= b = a
+  | a < b = b
+
 --pembatas
 
 ee = min 8 4 -- returns 4
 
+min' a b
+  | a >= b = b
+  | a < b = a
+
 --pembatas
 
-ff = concat ["wisnu", "sima"] -- returns "wisnusima"
+ff = concat ["wisnu", "zhuge", "sima"] -- returns "wisnuzhugesima"
 gg = concat [[1, 2], [5, 6]] -- returns [1,2,5,6]
+
+concat' [] = []
+concat' [x] = x
+concat' (b:bs) = b ++ (concat' bs)
 
 --pembatas
 
@@ -157,9 +178,14 @@ jj = intercalate "wisnu" ["zhuge", "sima", "ina"] -- returns "zhugewisnusimawisn
 
 kk = and [True, False, True] -- returns False
 
+and' [] = True
+and' (a:as) = a && (and' as)
 --pembatas
 
 ll = or [True, False, True] -- returns True
+
+or' [] = False
+or' (a:as) = a || (or' as)
 
 --pembatas
 
@@ -169,9 +195,15 @@ mm = zip3 "abcd" "efgh" "ijkl" -- returns [('a','e','i'),('b','f','j'),('c','g',
 
 nn = sum [1, 2, 4] -- returns 7
 
+sum' [] = 0
+sum' (a:as) = a + (sum' as)
+
 --pembatas
 
 oo = product [1, 2, 4] -- returns 8
+
+product' [] = 1
+product' (a:as) = a *  (product' as)
 
 --pembatas
 
@@ -188,6 +220,10 @@ rr = unlines ["wisnu","ina","zhuge","sima"] -- returns "wisnu\nina\nzhuge\nsima\
 --pembatas
 
 ss = unwords ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie putra subekti"
+
+unwords' [] = []
+unwords' [x] = x
+unwords' (b:bs) = b ++ " " ++ (unwords' bs)
 
 --pembatas
 

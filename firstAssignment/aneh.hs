@@ -251,12 +251,16 @@ or' (a:as) = a || (or' as)
 
 zip3' a b c
   | a == [] || b == [] || c == [] = []
-  | otherwise = "abc"
-mm = zip3' "abcd" "efgh" "ijkl" -- returns [('a','e','i'),('b','f','j'),('c','g','k'),('d','h','l')]
+  | otherwise = (x, y, z):(zip3' xs ys zs)
+  where (x:xs) = a
+        (y:ys) = b
+        (z:zs) = c
+
+mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3,'k'),('d',1,'l')]
 
 --pembatas
 
-nn = sum' [1, 2, 4] -- returns 7
+nn = sum' [1, 2, 4] -- returns 7 
 
 sum' [] = 0
 sum' (a:as) = a + (sum' as)

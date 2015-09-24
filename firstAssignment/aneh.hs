@@ -4,25 +4,26 @@
 module Aneh where
 import Data.List
 
--- The null function is for checking whether a list is an empty list or not.
+-- 1. The null function is for checking whether a list is an empty list or not.
 -- input list, output boolean
 
 null' x = (x == [])
 
--- the take function is for taking the data number n, n+1, and so on in a list.
+-- 2. the take function is for taking the data number n, n+1, and so on in a list.
 -- input integer, list; output list
 
 take' 0 (a:as) = []
 take' x [] = []
 take' x (a:as) = a : (take' (pred x) as)
 
--- I don't understand why there is an error in this definition:
+-- this one is also effective, but takes longer time and larger momory when executed:
+
+take'' x [] = []
 take'' x (a:as)
   | x == 0 = []
-  | (a:as) == [] = [] -- <- it looks like this line doesn't work
   | otherwise = a : (take'' (pred x) as)
 
--- the drop function is for taking the data number n, n-1, and so on in a list.
+-- 3. the drop function is for taking the data number n, n-1, and so on in a list.
 -- input integer, list; output list
 -- I created two ways of defining drop
 
@@ -30,125 +31,127 @@ drop' x [] = []
 drop' 0 y = y
 drop' x (y:ys) = drop' (pred x) ys
 
+-- this one is also effective, but takes longer time and larger momory when executed:
+
 drop'' x y
   | x < 1 = y
   | y == [] = []
   | otherwise = drop'' (pred x) as
     where (a:as) = y
 
--- return the first value of a tuple
+-- 4. return the first value of a tuple
 
 fst' (a, b) = a
 
--- return the second value of a tuple
+-- 5. return the second value of a tuple
 
 snd' (a, b) = b
 
--- I am still not sure whether lambda function is the only available input for the map function.
--- If it's true, then map is a function that map a list itu another list by using a function.
+-- 6. Map is a function that maps a list itu another list by using a function.
 -- input function and a list, output list.
-
-m = map' (\ x -> x*x) [2, 3]
 
 map' f [] = []
 map' f [x] = [(f x)]
 map' f (x:xs) = (f x):(map' f xs)
 
--- The filter function is to filter whether the domain that only applies on certain condition.
+m = map' (\ x -> x*x) [2, 3]
 
-o = filter' (\ x -> x>0) [4, 3, (-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.
+-- 7. The filter function is to filter whether the domain that only applies on certain condition.
 
 filter' f [] = []
 filter' f (x:xs)
   | (f x) = x:(filter' f xs)
   | otherwise = (filter' f xs)
 
--- delete a datum from a list
--- input the datum, output list
+o = filter' (\ x -> x>0) [4, 3, (-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.
 
-p = delete' 2 [2, 3, 5, 2, 1, 1]
-q = delete' 1 [2, 3, 4, 2, 1, 3]
+-- 8. delete a datum from a list
+-- input the datum, output list
 
 delete' a [] = []
 delete' a (x:xs)
   | (a == x) = (delete' a xs)
   | otherwise = x:(delete' a xs)
 
--- create deleteAll
+p = delete' 2 [2, 3, 5, 2, 1, 1]
+q = delete' 1 [2, 3, 4, 2, 1, 3]
+
+-- 9. create deleteAll
 
 deleteAll a = []
 
---pembatas
+-- 10. pembatas
 
 foldl' x = x
 
---pembatas
+-- 11. pembatas
 
 foldl1' x = x
 
---pembatas
+-- 12. zip
+-- this one is faster but consumes larger memory
 
-r = zip [2, 3, 4] [6, 7, 8] -- returns [(2,6),(3,7),(4,8)]
-
-zip' x y
-  | x == [] && y == [] = []
+zip'' x y
+  | x == [] || y == [] = []
   | otherwise = (a,b):(zip' as bs)
   where (a:as) = x
         (b:bs) = y
 
-zip'' [] [] = []
-zip'' (a:as) (b:bs) = (a,b):(zip'' as bs)
+-- this one is slower but consumes little memory
+zip' a [] = []
+zip' [] b = []
+zip' (a:as) (b:bs) = (a,b):(zip'' as bs)
 
---pembatas
+r = zip' [2, 3, 4] [6, 7, 8] -- returns [(2,6),(3,7),(4,8)]
 
-s = zipWith' (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
+-- 13. pembatas
 
 zipWith' f a [] = []
 zipWith' f [] b = []
 zipWith' f (a:as) (b:bs) = (f a b):(zipWith' f as bs)
 
---pembatas
+s = zipWith' (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
+
+-- 14. pembatas
 
 nth' (a:as) 0 = a
 nth' (a:as) n = nth' as (pred n)
 
---pembatas
+-- 15. pembatas
 
 scanl' x = x
 
---pembatas
+-- 16. pembatas
 
 scanl1' x = x
 
---pembatas
-
-t = elem' 2 [1, 2, 3, 4] -- returns True
-u = elem' 2 [1, 3, 4] -- returns False
+-- 17. pembatas
 
 elem' a (y:ys)
   | a == y = True
   | ys == [] = False
   | otherwise = elem' a ys
 
---pembatas
+t = elem' 2 [1, 2, 3, 4] -- returns True
+u = elem' 2 [1, 3, 4] -- returns False
 
-v = notElem' 2 [1, 2, 3, 4] -- returns False
-w = notElem' 2 [1, 3, 4] -- returns True
+-- 18. pembatas
 
 notElem' a (y:ys)
   | a == y = False
   | ys == [] = True
   | otherwise = notElem' a ys
 
---pembatas
+v = notElem' 2 [1, 2, 3, 4] -- returns False
+w = notElem' 2 [1, 3, 4] -- returns True
 
-x = head' [2, 3, 4, 5] -- returns 2
+-- 19. pembatas
 
 head' (a:as) = a
 
---pembatas
+x = head' [2, 3, 4, 5] -- returns 2
 
-y = length' [3, 4, 5, 6] -- returns 4
+-- 20. pembatas
 
 length' [] = 0
 length' (a:as) = 1 + (length' as)
@@ -158,96 +161,99 @@ length'' x
   | otherwise = 1 + (length' as)
   where (a:as) = x
 
---pembatas
+y = length' [3, 4, 5, 6] -- returns 4
+
+-- 21. pembatas
 
 reverse' []  = []
 reverse' (a:as) = (reverse' as) ++ [a]
 
 z = reverse' [1, 2, 3, 4] -- returns [4, 3, 2, 1]
 
---pembatas
-
-aa = last' [3, 4, 5, 6] -- returns 6
-ab = last [3, 4, 5, 6] -- returns 6
+-- 22. pembatas
 
 last' (a:as)
   | as == [] = a
   | otherwise = (last' as)
 
---pembatas
+aa = last' [3, 4, 5, 6] -- returns 6
+ab = last [3, 4, 5, 6] -- returns 6
 
-bb = tail [3, 4, 5, 6] -- returns [4, 5, 6]
+-- 23. pembatas
 
 tail' (a:as) = as
 
---pembatas
+bb = tail' [3, 4, 5, 6] -- returns [4, 5, 6]
 
-cc = init [3, 4, 5, 6] -- returns [3, 4, 5]
+-- 24. pembatas
 
 init' (x:xs)
   | xs == [] = []
   | otherwise = x:(init' xs)
 
---pembatas
+cc = init' [3, 4, 5, 6] -- returns [3, 4, 5]
 
-dd = max' 8 4 -- returns 8
+-- 25. pembatas
 
 max' a b
   | a >= b = a
   | a < b = b
 
---pembatas
+dd = max' 8 4 -- returns 8
 
-ee = min' 8 4 -- returns 4
+-- 26. pembatas
 
 min' a b
   | a >= b = b
   | a < b = a
 
---pembatas
+ee = min' 8 4 -- returns 4
 
-ff = concat' ["wisnu", "zhuge", "sima"] -- returns "wisnuzhugesima"
-gg = concat' [[1, 2], [5, 6]] -- returns [1,2,5,6]
+-- 27. pembatas
 
 concat' [] = []
 concat' [x] = x
 concat' (b:bs) = b ++ (concat' bs)
 
---pembatas
+ff = concat' ["wisnu", "zhuge", "sima"] -- returns "wisnuzhugesima"
+gg = concat' [[1, 2], [5, 6]] -- returns [1,2,5,6]
 
-hh = intersperse' 'a' "qrtgd" -- returns "qaratagad"
-ii = intersperse' 2 [1, 3, 4, 6, 7] -- returns [1,2,3,2,4,2,6,2,7]
+-- 28. pembatas
 
 intersperse' a [] = []
 intersperse' a (y:ys)
   | ys == [] = [y]
   | otherwise = y:a:(intersperse' a ys)
 
---pembatas
+hh = intersperse' 'a' "qrtgd" -- returns "qaratagad"
+ii = intersperse' 2 [1, 3, 4, 6, 7] -- returns [1,2,3,2,4,2,6,2,7]
 
-jj = intercalate' "wisnu" ["zhuge", "sima", "ina"] -- returns "zhugewisnusimawisnuina"
-jk = intercalate' "asakl" []
+-- 29. pembatas
 
 intercalate' x [] = []
 intercalate' x (b:bs)
   | bs == [] = b
   | otherwise = b ++ x ++ (intercalate x bs)
 
---b ++ x ++ (intercalate' x bs)
---pembatas
+jj = intercalate' "wisnu" ["zhuge", "sima", "ina"] -- returns "zhugewisnusimawisnuina"
+jk = intercalate' "asakl" []
 
-kk = and' [True, False, True] -- returns False
+-- 30. b ++ x ++ (intercalate' x bs)
+--pembatas
 
 and' [] = True
 and' (a:as) = a && (and' as)
---pembatas
 
-ll = or' [True, False, True] -- returns True
+kk = and' [True, False, True] -- returns False
+
+-- 31. pembatas
 
 or' [] = False
 or' (a:as) = a || (or' as)
 
---pembatas
+ll = or' [True, False, True] -- returns True
+
+-- 32. pembatas
 
 zip3' a b c
   | a == [] || b == [] || c == [] = []
@@ -258,61 +264,94 @@ zip3' a b c
 
 mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3,'k'),('d',1,'l')]
 
---pembatas
-
-nn = sum' [1, 2, 4] -- returns 7 
+-- 33. pembatas
 
 sum' [] = 0
 sum' (a:as) = a + (sum' as)
 
---pembatas
+nn = sum' [1, 2, 4] -- returns 7
 
-oo = product' [1, 2, 4] -- returns 8
+-- 34. pembatas
 
 product' [] = 1
 product' (a:as) = a *  (product' as)
 
---pembatas
+oo = product' [1, 2, 4] -- returns 8
 
-rr = unlines ["wisnu","ina","zhuge","sima"] -- returns "wisnu\nina\nzhuge\nsima\n"
+-- 35. pembatas
 
---pembatas
+unlines' [] = []
+unlines' [x] = x
+unlines' (b:bs) = b ++ "\n" ++ (unlines' bs)
 
-ss = unwords' ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie putra subekti"
+rr = unlines' ["wisnu","ina","zhuge","sima"] -- returns "wisnu\nina\nzhuge\nsima\n"
+
+-- 36. pembatas
 
 unwords' [] = []
 unwords' [x] = x
 unwords' (b:bs) = b ++ " " ++ (unwords' bs)
 
---pembatas
+ss = unwords' ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie putra subekti"
+
+-- 37. pembatas
 
 takeWhile' x = x
 
---pembatas
+-- 38. pembatas
 
 dropWhile' x = x
 
---pembatas
+-- 39. pembatas
 
-vv = concatMap (\ x -> [2*x, 3*x]) [2, 3] -- returns [4,6,6,9]
+concatMap' f x
+  | x == [] = []
+  | otherwise = (f a) ++ (concatMap' f as)
+  where (a:as) = x
 
---pembatas
+vv = concatMap' (\ x -> [4*x, 5*x, 7*x]) [2, 3, 0, 1] -- returns [8,10,14,12,15,21,0,0,0,4,5,7]
 
-ww = all (\ x -> x==1) [1, 2, 3, 4] -- returns False
-xx = all (\ x -> x==1) [1, 1, 1, 1] -- returns True
+-- 40. Keep in mind that the "all" predicate for an empty set is True.
+-- https://en.wikipedia.org/wiki/Vacuous_truth
 
---pembatas
+all' f x
+  | x == [] = True
+  | otherwise = (f a) && (all' f as)
+  where (a:as) = x
 
-yy = any (\ x -> x==1) [1, 2, 3, 4] -- returns True
-zz = any (\ x -> x==1) [2, 3, 4] -- returns False
+ww = all' (\ x -> x==1) [1, 2, 3, 4] -- returns False
+xx = all' (\ x -> x==1) [1, 1, 1, 1] -- returns True
+xr = all' (\ x -> x==1) [] -- returns False
 
---pembatas
+-- 41. pembatas
 
-aaa = insert 'a' "lsdkjasf" -- returns "alsdkjasf"
+any' f x
+  | x == [] = False
+  | otherwise = (f a) || (all' f as)
+  where (a:as) = x
 
---pembatas
+yy = any' (\ x -> x==1) [1, 2, 3, 4] -- returns True
+zz = any' (\ x -> x==1) [2, 3, 4] -- returns False
+yz = any' (\ x -> x==1) [] -- returns False
+
+-- 42. pembatas
+
+insert' a as = a:as
+
+aq = insert' 'a' "lsdkjasf" -- returns "alsdkjasf"
+
+
+-- 43. pembatas
+
+zipWith3' f x y z
+  | x == [] || y == [] || z == [] = []
+  | otherwise = (f a b c):(zipWith3' f as bs cs)
+  where (a:as) = x
+        (b:bs) = y
+        (c:cs) = z
 
 bbb = zipWith3 (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
+bab = zipWith3' (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
 
 --pembatas
 

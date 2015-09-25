@@ -266,7 +266,13 @@ zip3' a b c
 
 mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3,'k'),('d',1,'l')]
 
+<<<<<<< HEAD
 -- 33. pembatas
+=======
+--pembatas
+
+nn = sum' [1, 2, 4] -- returns 7
+>>>>>>> origin/master
 
 sum' [] = 0
 sum' (a:as) = a + (sum' as)

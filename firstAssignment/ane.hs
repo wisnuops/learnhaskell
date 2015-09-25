@@ -125,6 +125,7 @@ scanl1' x = x
 t = elem' 2 [1, 2, 3, 4] -- returns True
 u = elem' 2 [1, 3, 4] -- returns False
 
+elem' a [] = False
 elem' a (y:ys)
   | a == y = True
   | ys == [] = False
@@ -135,6 +136,7 @@ elem' a (y:ys)
 v = notElem' 2 [1, 2, 3, 4] -- returns False
 w = notElem' 2 [1, 3, 4] -- returns True
 
+notElem' a [] = True
 notElem' a (y:ys)
   | a == y = False
   | ys == [] = True
@@ -390,6 +392,7 @@ pp = words' "wisnu oktobrie putra subekti" -- returns ["wisnu","oktobrie","putra
 
 aword [] = []
 aword (w:ws)
+  | w == ' ' = tail' (w:ws)
   | w /= ' ' = w:aword(ws)
   | otherwise = []
 
@@ -410,3 +413,15 @@ qq = lines "wisnu\nina\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
 -- First Assignment
 -- Reimplement Haskell function
 -- DON'T USE GOOGLE
+
+indexOf a [] = -1
+indexOf a (d:ds)
+  | (notElem' a (d:ds)) = -1
+  | d /= a = 1 + (indexOf a ds)
+  | otherwise = 0
+
+swap' a b h = (take mi h) ++ [(nth' h ma)] ++ (take (ma-mi-1) (drop (mi+1) h)) ++ [(nth' h mi)] ++ (drop (ma+1) h)
+  where ma = max' a b
+        mi = min' a b
+
+-- editan terakhir

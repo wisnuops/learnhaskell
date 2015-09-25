@@ -260,7 +260,7 @@ mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3
 
 --pembatas
 
-nn = sum' [1, 2, 4] -- returns 7 
+nn = sum' [1, 2, 4] -- returns 7
 
 sum' [] = 0
 sum' (a:as) = a + (sum' as)

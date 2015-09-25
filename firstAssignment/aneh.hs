@@ -129,6 +129,7 @@ scanl1' x = x
 
 -- 17. pembatas
 
+elem' a [] = False
 elem' a (y:ys)
   | a == y = True
   | ys == [] = False
@@ -139,6 +140,7 @@ u = elem' 2 [1, 3, 4] -- returns False
 
 -- 18. pembatas
 
+notElem' a [] = True
 notElem' a (y:ys)
   | a == y = False
   | ys == [] = True
@@ -266,10 +268,7 @@ zip3' a b c
 
 mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3,'k'),('d',1,'l')]
 
-<<<<<<< HEAD
 -- 33. pembatas
-=======
---pembatas
 
 nn = sum' [1, 2, 4] -- returns 7
 >>>>>>> origin/master
@@ -385,7 +384,7 @@ smallest' (x:xs)
 
 --pembatas
 
-eee = minimum "oikjwkefwef" -- returns 'e'
+eee = minimum' "oikjwkefwef" -- returns 'e'
 
 minimum' (x:xs)
   | xs == [] = x
@@ -395,7 +394,7 @@ minimum' (x:xs)
 
 --pembatas
 
-fff = maximum "oikjwkefwef" -- returns 'w'
+fff = maximum' "oikjwkefwef" -- returns 'w'
 
 maximum' (x:xs)
   | xs == [] = x
@@ -431,6 +430,11 @@ kkk = intersect "qlqkncnqtnslewt" "snqw veefkje" -- returns "qqknnqnsew"
 lll = group "slkjsvsmvks" -- returns ["s","l","k","j","s","v","s","m","v","k","s"]
 mmm = group [3, 4, 6,67,7] -- returns [[3],[4],[6],[67],[7]]
 
+group' [] = []
+group' (a:as)
+  | as == [] = [[a]]
+  | otherwise = [a]:(group as)
+
 --pembatas
 
 nnn = splitAt 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
@@ -440,14 +444,41 @@ nnn = splitAt 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
 ooo = partition (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
 ppp = partition (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])
 
+partition' f x = [(filter' f x), (invFilter' f x)]
+
+invFilter' f [] = []
+invFilter' f (x:xs)
+    | (f x) = (invFilter' f xs)
+    | otherwise = x:(invFilter' f xs)
+
 --pembatas
 
 qqq = replicate 2 4 -- returns [4,4]
 rrr = replicate 10 'f' -- returns "ffffffffff"
 
+replicate' a b
+  | a < 1 = []
+  | otherwise = b:(replicate (pred a) b)
+
 --pembatas
 
-pp = words "wisnu oktobrie putra subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
+pp = words' "wisnu oktobrie putra subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
+
+aword [] = []
+aword (w:ws)
+  | w == ' ' = tail' (w:ws)
+  | w /= ' ' = w:aword(ws)
+  | otherwise = []
+
+sisaword [] = []
+sisaword (w:ws)
+  | w /= ' ' = (sisaword ws)  -- ineficiency spotted
+  | otherwise = ws
+
+words' [] = []
+words' x
+  | sisaword x == [] = []
+  | otherwise = (aword x):(words' (sisaword x))
 
 --pembatas
 
@@ -467,6 +498,12 @@ tes (d:ds) = (foldl fungsi d listnya):(tes ds)
 
 wer = tes [(-3), (-2), (-1), 0, 1, 2, 3]
 
--- 2x 8x [2, 3, 4]
--- 2x 16x [1, 2, 3, 4]
--- 2x 32x [1, 2, 3, 4, 5]
+indexOf a [] = -1
+indexOf a (d:ds)
+  | (notElem' a (d:ds)) = -1
+  | d /= a = 1 + (indexOf a ds)
+  | otherwise = 0
+
+swap' a b h = (take mi h) ++ [(nth' h ma)] ++ (take (ma-mi-1) (drop (mi+1) h)) ++ [(nth' h mi)] ++ (drop (ma+1) h)
+  where ma = max' a b
+        mi = min' a b

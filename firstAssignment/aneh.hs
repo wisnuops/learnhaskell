@@ -55,7 +55,9 @@ map' f [x] = [(f x)]
 map' f (x:xs) = (f x):(map' f xs)
 
 m = map' (\ x -> x*x) [2, 3]
+m2 = map' (geser3kali) "ini juga bisa"
 
+geser3kali x = (succ (succ (succ x)))
 -- 7. The filter function is to filter whether the domain that only applies on certain condition.
 
 filter' f [] = []
@@ -353,31 +355,61 @@ zipWith3' f x y z
 bbb = zipWith3 (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
 bab = zipWith3' (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
 
---pembatas
-
 -- 1.b
 
 ccc = nub "sdskjls" -- reutrns "sdkjl"
 
---pembatas
+--2. The sort function works, but in a very ineficient way.
 
-ddd = sort "sokwjfweg" -- returns "efgjkosww"
+ddd = sort' "asokwjfweg" -- returns "aefgjkosww"
+
+sort' [] = []
+sort' y
+  | (isSmallest a y) = a:(sort' as)
+  | otherwise = (sort' (reverse' y))
+  where (a:as) = y
+
+isSmallest a b = (a == smallest' b)
+
+smallest' (x:xs)
+  | xs == [] = x
+  | (x < y) = smallest' (x:ys)
+  | otherwise = smallest' (y:ys)
+  where (y:ys) = xs
 
 --pembatas
 
 eee = minimum "oikjwkefwef" -- returns 'e'
 
+minimum' (x:xs)
+  | xs == [] = x
+  | (x < y) = minimum' (x:ys)
+  | otherwise = minimum' (y:ys)
+  where (y:ys) = xs
+
 --pembatas
 
 fff = maximum "oikjwkefwef" -- returns 'w'
 
+maximum' (x:xs)
+  | xs == [] = x
+  | (x > y) = maximum' (x:ys)
+  | otherwise = maximum' (y:ys)
+  where (y:ys) = xs
+
 --pembatas
 
-ggg = inits "wlkfjqiomg" -- returns ["","w","wl","wlk","wlkf","wlkfj","wlkfjq","wlkfjqi","wlkfjqio","wlkfjqiom","wlkfjqiomg"]
+ggg = inits' "wlkfjqiomg" -- returns ["","w","wl","wlk","wlkf","wlkfj","wlkfjq","wlkfjqi","wlkfjqio","wlkfjqiom","wlkfjqiomg"]
+
+inits' [] = [[]]
+inits' x = inits' (init x) ++ [x]
 
 --pembatas
 
-hhh = tails "wlkfjqiomg" -- reutns ["wlkfjqiomg","lkfjqiomg","kfjqiomg","fjqiomg","jqiomg","qiomg","iomg","omg","mg","g",""]
+hhh = tails' "wlkfjqiomg" -- reutns ["wlkfjqiomg","lkfjqiomg","kfjqiomg","fjqiomg","jqiomg","qiomg","iomg","omg","mg","g",""]
+
+tails' [] = [[]]
+tails' x = x:(tails (tail x))
 
 --pembatas
 
@@ -418,3 +450,17 @@ qq = lines "wisnu\nina\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
 -- First Assignment
 -- Reimplement Haskell function
 -- DON'T USE GOOGLE
+
+-- foldl ini bener-bener time wasting banget... ga ketemu2 coba.
+
+fung = (\ x y -> x)
+fungsi = (\ x y -> x)
+listnya = "qs"
+tes [] = []
+tes (d:ds) = (foldl fungsi d listnya):(tes ds)
+
+wer = tes [(-3), (-2), (-1), 0, 1, 2, 3]
+
+-- 2x 8x [2, 3, 4]
+-- 2x 16x [1, 2, 3, 4]
+-- 2x 32x [1, 2, 3, 4, 5]

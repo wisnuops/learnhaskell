@@ -270,9 +270,6 @@ mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3
 
 -- 33. pembatas
 
-nn = sum' [1, 2, 4] -- returns 7
->>>>>>> origin/master
-
 sum' [] = 0
 sum' (a:as) = a + (sum' as)
 
@@ -362,25 +359,25 @@ bab = zipWith3' (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,
 
 -- 1.b
 
-ccc = nub "sdskjls" -- reutrns "sdkjl"
+ccc = nub' "sdskdjls" -- reutrns "sdkjl"
+csc = nub "sdskdjls" -- reutrns "sdkjl"
 
---2. The sort function works, but in a very ineficient way.
+nub' [] = []
+nub' (x:xs)
+  | xs == [] = [x]
+  | (elem' x xs) = x:(nub' (delete' x xs))
+  | otherwise = x:(nub' xs)
+
+--pembatas
 
 ddd = sort' "asokwjfweg" -- returns "aefgjkosww"
+dds = sort "asokwjfweg" -- returns "aefgjkosww"
 
 sort' [] = []
 sort' y
- | (isSmallest a y) = a:(sort' as)
- | otherwise = (sort' (reverse' y))
+ | (a == minimum' y) = a:(sort' as)
+ | otherwise = (sort' (as ++ [a]))
  where (a:as) = y
-
-isSmallest a b = (a == smallest' b)
-
-smallest' (x:xs)
- | xs == [] = x
- | (x < y) = smallest' (x:ys)
- | otherwise = smallest' (y:ys)
- where (y:ys) = xs
 
 --pembatas
 
@@ -414,35 +411,44 @@ inits' x = inits' (init x) ++ [x]
 hhh = tails' "wlkfjqiomg" -- reutns ["wlkfjqiomg","lkfjqiomg","kfjqiomg","fjqiomg","jqiomg","qiomg","iomg","omg","mg","g",""]
 
 tails' [] = [[]]
-tails' x = x:(tails (tail x))
+tails' x = x:(tails' (tail x))
 
 --pembatas
 
-iii = union "wisnu " "oktobrie" -- returns "wisnu oktbre"
+iii = union' "wisnu" "oktobrie" -- returns "wisnuoktbre"
+
+union' a b = (nub' (a ++ b))
 
 --pembatas
 
-jjj = intersect "slkdjs" "qokfc" -- returns "k"
-kkk = intersect "qlqkncnqtnslewt" "snqw veefkje" -- returns "qqknnqnsew"
+jjj = intersect' "slkdjs" "qokfc" -- returns "k"
+kkk = intersect' "qlqkncnqtnslewt" "snqw veefkje" -- returns "qqknnqnsew"
+
+intersect' [] b = []
+intersect' (a:as) b
+  | (elem' a b) = a:(intersect' as b)
+  | otherwise = (intersect' as b)
 
 --pembatas
 
-lll = group "slkjsvsmvks" -- returns ["s","l","k","j","s","v","s","m","v","k","s"]
-mmm = group [3, 4, 6,67,7] -- returns [[3],[4],[6],[67],[7]]
+lll = group' "slkjsvsmvks" -- returns ["s","l","k","j","s","v","s","m","v","k","s"]
+mmm = group' [3, 4, 6,67,7] -- returns [[3],[4],[6],[67],[7]]
 
 group' [] = []
 group' (a:as)
  | as == [] = [[a]]
- | otherwise = [a]:(group as)
+ | otherwise = [a]:(group' as)
 
 --pembatas
 
-nnn = splitAt 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
+nnn = splitAt' 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
+
+splitAt' i b = (take' i b, drop' i b)
 
 --pembatas
 
-ooo = partition (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
-ppp = partition (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])
+ooo = partition' (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
+ppp = partition' (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])
 
 partition' f x = [(filter' f x), (invFilter' f x)]
 
@@ -453,8 +459,8 @@ invFilter' f (x:xs)
 
 --pembatas
 
-qqq = replicate 2 4 -- returns [4,4]
-rrr = replicate 10 'f' -- returns "ffffffffff"
+qqq = replicate' 2 4 -- returns [4,4]
+rrr = replicate' 10 'f' -- returns "ffffffffff"
 
 replicate' a b
  | a < 1 = []
@@ -462,27 +468,41 @@ replicate' a b
 
 --pembatas
 
-pp = words' "wisnu oktobrie putra subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
+pp = words' " wisnu oktobrie putra    subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
 
 aword [] = []
 aword (w:ws)
- | w == ' ' = tail' (w:ws)
- | w /= ' ' = w:aword(ws)
- | otherwise = []
+  | w == ' ' = aword ws
+  | otherwise = (takeWhile (\x -> x > ' ') (w:ws))
 
 sisaword [] = []
 sisaword (w:ws)
- | w /= ' ' = (sisaword ws)  -- ineficiency spotted
- | otherwise = ws
+  | w == ' ' = sisaword ws
+  | otherwise = (dropWhile (\x -> x > ' ') (w:ws))
 
 words' [] = []
 words' x
- | sisaword x == [] = []
+ | sisaword x == [] = [aword x]
  | otherwise = (aword x):(words' (sisaword x))
 
 --pembatas
 
-qq = lines "wisnu\nina\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
+qq = lines' "\nwisnu\nina\n\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
+
+aline [] = []
+aline (w:ws)
+  | w == '\n' = aline ws
+  | otherwise = (takeWhile (\x -> x > '\n') (w:ws))
+
+sisaline [] = []
+sisaline (w:ws)
+  | w == '\n' = sisaline ws
+  | otherwise = (dropWhile (\x -> x > '\n') (w:ws))
+
+lines' [] = []
+lines' x
+ | sisaline x == [] = [aline x]
+ | otherwise = (aline x):(lines' (sisaline x))
 
 -- First Assignment
 -- Reimplement Haskell function

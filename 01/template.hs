@@ -484,6 +484,7 @@ sisaword (w:ws)
 
 words' [] = []
 words' x
+ | aword x == [] = []
  | sisaword x == [] = [aword x]
  | otherwise = (aword x):(words' (sisaword x))
 

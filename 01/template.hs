@@ -493,7 +493,7 @@ words' a
  | aword y == [] = []
  | sisaword y == [] = [aword y]
  | otherwise = (aword y):(words' (sisaword y))
- where y = filter (\x -> x >= ' ') a
+ where y = filter (\x -> x >= ' ') a  -- remove white spaces
 --pembatas
 
 qq = lines' "\nwisnu\nina\n\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]

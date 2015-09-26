@@ -344,7 +344,6 @@ insert' a as = a:as
 
 aq = insert' 'a' "lsdkjasf" -- returns "alsdkjasf"
 
-
 -- 43. pembatas
 
 zipWith3' f x y z
@@ -445,7 +444,10 @@ nnn = splitAt' 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
 
 splitAt' i b = (take' i b, drop' i b)
 
---pembatas
+-- pembatas / Gue agak penasaran sih. Code kayak gini sebenernya ineficient nggak sih?
+-- masalahnya gue harus bikin dua fungsi untuk melakukan hal serupa:
+-- Filter dan invFilter. Keduanya mirip.
+-- Bisa nggak sih sekali jalan untuk melakukan Keduanya bersamaan?
 
 ooo = partition' (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
 ppp = partition' (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])

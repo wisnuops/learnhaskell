@@ -504,6 +504,7 @@ sisaline (w:ws)
 
 lines' [] = []
 lines' x
+ | aline x == [] = []
  | sisaline x == [] = [aline x]
  | otherwise = (aline x):(lines' (sisaline x))
 

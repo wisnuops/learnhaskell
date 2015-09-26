@@ -12,31 +12,29 @@ null' x = (x == [])
 -- 2. the take function is for taking the data number n, n+1, and so on in a list.
 -- input integer, list; output list
 
-take' 0 (a:as) = []
+-- this one doesn't work if x == -1 such as take (-1) "sdkjsl"
+-- take' 0 (a:as) = []
+-- take' x [] = []
+-- take' x (a:as) = a : (take' (x-1) as)
+
 take' x [] = []
-take' x (a:as) = a : (take' (pred x) as)
-
--- this one is also effective, but takes longer time and larger momory when executed:
-
-take'' x [] = []
-take'' x (a:as)
- | x == 0 = []
- | otherwise = a : (take'' (pred x) as)
+take' x (a:as)
+ | x <= 0 = []
+ | otherwise = a : (take' (x-1) as)
 
 -- 3. the drop function is for taking the data number n, n-1, and so on in a list.
 -- input integer, list; output list
 -- I created two ways of defining drop
 
-drop' x [] = []
-drop' 0 y = y
-drop' x (y:ys) = drop' (pred x) ys
+-- this one doesn't work for x == -1 such as in drop (-1) "ldksj"
+-- drop' x [] = []
+-- drop' 0 y = y
+-- drop' x (y:ys) = drop' (pred x) ys
 
--- this one is also effective, but takes longer time and larger momory when executed:
-
-drop'' x y
- | x < 1 = y
+drop' x y
+ | x <= 0 = y
  | y == [] = []
- | otherwise = drop'' (pred x) as
+ | otherwise = drop' (x-1) as
    where (a:as) = y
 
 -- 4. return the first value of a tuple
@@ -54,10 +52,10 @@ map' f [] = []
 map' f [x] = [(f x)]
 map' f (x:xs) = (f x):(map' f xs)
 
-m = map' (\ x -> x*x) [2, 3]
-m2 = map' (geser3kali) "ini juga bisa"
-
+no6 = map' (\ x -> x*x) [2, 3]
+no6b = map' (geser3kali) "ini juga bisa"
 geser3kali x = (succ (succ (succ x)))
+
 -- 7. The filter function is to filter whether the domain that only applies on certain condition.
 
 filter' f [] = []
@@ -65,7 +63,7 @@ filter' f (x:xs)
  | (f x) = x:(filter' f xs)
  | otherwise = (filter' f xs)
 
-o = filter' (\ x -> x>0) [4, 3, (-2), (-1), 0, 1, 2] -- returns [1, 2] because 1 and 2 is greater than 0.
+no7 = filter' (\ x -> x>0) [4, 3, (-2), (-1), 0, 1, 2] -- returns [4, 3, 1, 2]
 
 -- 8. delete a datum from a list
 -- input the datum, output list
@@ -75,8 +73,8 @@ delete' a (x:xs)
  | (a == x) = (delete' a xs)
  | otherwise = x:(delete' a xs)
 
-p = delete' 2 [2, 3, 5, 2, 1, 1]
-q = delete' 1 [2, 3, 4, 2, 1, 3]
+no8 = delete' 2 [2, 3, 5, 2, 1, 1]
+no8b = delete' 1 [2, 3, 4, 2, 1, 3]
 
 -- 9. create deleteAll
 
@@ -109,7 +107,7 @@ zip' a [] = []
 zip' [] b = []
 zip' (a:as) (b:bs) = (a,b):(zip'' as bs)
 
-r = zip' [2, 3, 4] [6, 7, 8] -- returns [(2,6),(3,7),(4,8)]
+no12 = zip' [2, 3, 4] [6, 7, 8] -- returns [(2,6),(3,7),(4,8)]
 
 -- 13. pembatas
 
@@ -119,10 +117,10 @@ zipWith' f (a:as) (b:bs) = (f a b):(zipWith' f as bs)
 
 s = zipWith' (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
 
--- 14. pembatas
+-- 14. Ini works, tapi type-nya kenapa nggak harus Int yah? Beda sama aslinya.
 
 nth' (a:as) 0 = a
-nth' (a:as) n = nth' as (pred n)
+nth' (a:as) n = nth' as (n-1)
 
 -- 15. pembatas
 
@@ -146,9 +144,6 @@ elem' a (y:ys)
  | ys == [] = False
  | otherwise = elem' a ys
 
-t = elem' 2 [1, 2, 3, 4] -- returns True
-u = elem' 2 [1, 3, 4] -- returns False
-
 -- 18. pembatas
 
 notElem' a [] = True
@@ -157,16 +152,11 @@ notElem' a (y:ys)
  | ys == [] = True
  | otherwise = notElem' a ys
 
-v = notElem' 2 [1, 2, 3, 4] -- returns False
-w = notElem' 2 [1, 3, 4] -- returns True
-
 -- 19. pembatas
 
 head' (a:as) = a
 
-x = head' [2, 3, 4, 5] -- returns 2
-
--- 20. pembatas
+-- 20. Ini juga works tapi type-nya beda sama aslinya
 
 length' [] = 0
 length' (a:as) = 1 + (length' as)
@@ -176,14 +166,10 @@ length'' x
  | otherwise = 1 + (length' as)
  where (a:as) = x
 
-y = length' [3, 4, 5, 6] -- returns 4
-
 -- 21. pembatas
 
 reverse' []  = []
 reverse' (a:as) = (reverse' as) ++ [a]
-
-z = reverse' [1, 2, 3, 4] -- returns [4, 3, 2, 1]
 
 -- 22. pembatas
 
@@ -191,14 +177,11 @@ last' (a:as)
  | as == [] = a
  | otherwise = (last' as)
 
-aa = last' [3, 4, 5, 6] -- returns 6
-ab = last [3, 4, 5, 6] -- returns 6
+no22 = last' [3, 4, 5, 6] -- returns 6
 
 -- 23. pembatas
 
 tail' (a:as) = as
-
-bb = tail' [3, 4, 5, 6] -- returns [4, 5, 6]
 
 -- 24. pembatas
 
@@ -206,7 +189,7 @@ init' (x:xs)
  | xs == [] = []
  | otherwise = x:(init' xs)
 
-cc = init' [3, 4, 5, 6] -- returns [3, 4, 5]
+no24 = init' [3, 4, 5, 6] -- returns [3, 4, 5]
 
 -- 25. pembatas
 
@@ -214,15 +197,11 @@ max' a b
  | a >= b = a
  | a < b = b
 
-dd = max' 8 4 -- returns 8
-
 -- 26. pembatas
 
 min' a b
  | a >= b = b
  | a < b = a
-
-ee = min' 8 4 -- returns 4
 
 -- 27. pembatas
 
@@ -230,8 +209,8 @@ concat' [] = []
 concat' [x] = x
 concat' (b:bs) = b ++ (concat' bs)
 
-ff = concat' ["wisnu", "zhuge", "sima"] -- returns "wisnuzhugesima"
-gg = concat' [[1, 2], [5, 6]] -- returns [1,2,5,6]
+no27 = concat' ["wisnu", "zhuge", "sima"] -- returns "wisnuzhugesima"
+no27b = concat' [[1, 2], [5, 6]] -- returns [1,2,5,6]
 
 -- 28. pembatas
 
@@ -240,8 +219,8 @@ intersperse' a (y:ys)
  | ys == [] = [y]
  | otherwise = y:a:(intersperse' a ys)
 
-hh = intersperse' 'a' "qrtgd" -- returns "qaratagad"
-ii = intersperse' 2 [1, 3, 4, 6, 7] -- returns [1,2,3,2,4,2,6,2,7]
+no28 = intersperse' 'a' "qrtgd" -- returns "qaratagad"
+no28b = intersperse' 2 [1, 3, 4, 6, 7] -- returns [1,2,3,2,4,2,6,2,7]
 
 -- 29. pembatas
 
@@ -250,8 +229,8 @@ intercalate' x (b:bs)
  | bs == [] = b
  | otherwise = b ++ x ++ (intercalate x bs)
 
-jj = intercalate' "wisnu" ["zhuge", "sima", "ina"] -- returns "zhugewisnusimawisnuina"
-jk = intercalate' "asakl" []
+no29 = intercalate' "wisnu" ["zhuge", "sima", "ina"] -- returns "zhugewisnusimawisnuina"
+no29b = intercalate' "asakl" []
 
 -- 30. b ++ x ++ (intercalate' x bs)
 --pembatas
@@ -259,14 +238,10 @@ jk = intercalate' "asakl" []
 and' [] = True
 and' (a:as) = a && (and' as)
 
-kk = and' [True, False, True] -- returns False
-
 -- 31. pembatas
 
 or' [] = False
 or' (a:as) = a || (or' as)
-
-ll = or' [True, False, True] -- returns True
 
 -- 32. pembatas
 
@@ -277,21 +252,17 @@ zip3' a b c
        (y:ys) = b
        (z:zs) = c
 
-mm = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3,'k'),('d',1,'l')]
+no32 = zip3' "abcd" [2, 4, 3, 1] "ijkl" -- returns [('a',2,'i'),('b',4,'j'),('c',3,'k'),('d',1,'l')]
 
 -- 33. pembatas
 
 sum' [] = 0
 sum' (a:as) = a + (sum' as)
 
-nn = sum' [1, 2, 4] -- returns 7
-
 -- 34. pembatas
 
 product' [] = 1
 product' (a:as) = a *  (product' as)
-
-oo = product' [1, 2, 4] -- returns 8
 
 -- 35. pembatas
 
@@ -299,7 +270,7 @@ unlines' [] = []
 unlines' [x] = x
 unlines' (b:bs) = b ++ "\n" ++ (unlines' bs)
 
-rr = unlines' ["wisnu","ina","zhuge","sima"] -- returns "wisnu\nina\nzhuge\nsima\n"
+no35 = unlines' ["wisnu","ina","zhuge","sima"] -- returns "wisnu\nina\nzhuge\nsima\n"
 
 -- 36. pembatas
 
@@ -307,7 +278,7 @@ unwords' [] = []
 unwords' [x] = x
 unwords' (b:bs) = b ++ " " ++ (unwords' bs)
 
-ss = unwords' ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie putra subekti"
+no36 = unwords' ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie putra subekti"
 
 -- 37. pembatas
 
@@ -330,7 +301,7 @@ concatMap' f x
  | otherwise = (f a) ++ (concatMap' f as)
  where (a:as) = x
 
-vv = concatMap' (\ x -> [4*x, 5*x, 7*x]) [2, 3, 0, 1] -- returns [8,10,14,12,15,21,0,0,0,4,5,7]
+no39 = concatMap' (\ x -> [4*x, 5*x, 7*x]) [2, 3, 0, 1] -- returns [8,10,14,12,15,21,0,0,0,4,5,7]
 
 -- 40. Keep in mind that the "all" predicate for an empty set is True.
 -- https://en.wikipedia.org/wiki/Vacuous_truth
@@ -340,9 +311,9 @@ all' f x
  | otherwise = (f a) && (all' f as)
  where (a:as) = x
 
-ww = all' (\ x -> x==1) [1, 2, 3, 4] -- returns False
-xx = all' (\ x -> x==1) [1, 1, 1, 1] -- returns True
-xr = all' (\ x -> x==1) [] -- returns False
+no40a = all' (\ x -> x==1) [1, 2, 3, 4] -- returns False
+no40b = all' (\ x -> x==1) [1, 1, 1, 1] -- returns True
+no40c = all' (\ x -> x==1) [] -- returns False
 
 -- 41. pembatas
 
@@ -351,16 +322,15 @@ any' f x
  | otherwise = (f a) || (all' f as)
  where (a:as) = x
 
-yy = any' (\ x -> x==1) [1, 2, 3, 4] -- returns True
-zz = any' (\ x -> x==1) [2, 3, 4] -- returns False
-yz = any' (\ x -> x==1) [] -- returns False
+no41 = any' (\ x -> x==1) [1, 2, 3, 4] -- returns True
+no41b = any' (\ x -> x==1) [2, 3, 4] -- returns False
+no41c = any' (\ x -> x==1) [] -- returns False
 
 -- 42. pembatas
 
 insert' a as = a:as
 
-aq = insert' 'a' "lsdkjasf" -- returns "alsdkjasf"
-
+no42 = insert' 'a' "lsdkjasf" -- returns "alsdkjasf"
 
 -- 43. pembatas
 
@@ -371,13 +341,11 @@ zipWith3' f x y z
        (b:bs) = y
        (c:cs) = z
 
-bbb = zipWith3 (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
-bab = zipWith3' (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
+no43 = zipWith3 (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,15,12]
 
 -- 1.b
 
-ccc = nub' "sdskdjls" -- reutrns "sdkjl"
-csc = nub "sdskdjls" -- reutrns "sdkjl"
+b1 = nub "sdskdjls" -- reutrns "sdkjl"
 
 nub' [] = []
 nub' (x:xs)
@@ -387,8 +355,7 @@ nub' (x:xs)
 
 --pembatas
 
-ddd = sort' "asokwjfweg" -- returns "aefgjkosww"
-dds = sort "asokwjfweg" -- returns "aefgjkosww"
+b2 = sort' "asokwjfweg" -- returns "aefgjkosww"
 
 sort' [] = []
 sort' y
@@ -398,7 +365,7 @@ sort' y
 
 --pembatas
 
-eee = minimum' "oikjwkefwef" -- returns 'e'
+b3 = minimum' "oikjwkefwef" -- returns 'e'
 
 minimum' (x:xs)
  | xs == [] = x
@@ -408,7 +375,7 @@ minimum' (x:xs)
 
 --pembatas
 
-fff = maximum' "oikjwkefwef" -- returns 'w'
+b4 = maximum' "oikjwkefwef" -- returns 'w'
 
 maximum' (x:xs)
  | xs == [] = x
@@ -418,28 +385,28 @@ maximum' (x:xs)
 
 --pembatas
 
-ggg = inits' "wlkfjqiomg" -- returns ["","w","wl","wlk","wlkf","wlkfj","wlkfjq","wlkfjqi","wlkfjqio","wlkfjqiom","wlkfjqiomg"]
+b5 = inits' "wlkfjqiomg" -- returns ["","w","wl","wlk","wlkf","wlkfj","wlkfjq","wlkfjqi","wlkfjqio","wlkfjqiom","wlkfjqiomg"]
 
 inits' [] = [[]]
 inits' x = inits' (init x) ++ [x]
 
 --pembatas
 
-hhh = tails' "wlkfjqiomg" -- reutns ["wlkfjqiomg","lkfjqiomg","kfjqiomg","fjqiomg","jqiomg","qiomg","iomg","omg","mg","g",""]
+b6 = tails' "wlkfjqiomg" -- reutns ["wlkfjqiomg","lkfjqiomg","kfjqiomg","fjqiomg","jqiomg","qiomg","iomg","omg","mg","g",""]
 
 tails' [] = [[]]
 tails' x = x:(tails' (tail x))
 
 --pembatas
 
-iii = union' "wisnu" "oktobrie" -- returns "wisnuoktbre"
+b7 = union' "wisnu" "oktobrie" -- returns "wisnuoktbre"
 
 union' a b = (nub' (a ++ b))
 
 --pembatas
 
-jjj = intersect' "slkdjs" "qokfc" -- returns "k"
-kkk = intersect' "qlqkncnqtnslewt" "snqw veefkje" -- returns "qqknnqnsew"
+b8 = intersect' "slkdjs" "qokfc" -- returns "k"
+b8b = intersect' "qlqkncnqtnslewt" "snqw veefkje" -- returns "qqknnqnsew"
 
 intersect' [] b = []
 intersect' (a:as) b
@@ -448,8 +415,8 @@ intersect' (a:as) b
 
 --pembatas
 
-lll = group' "slkjsvsmvks" -- returns ["s","l","k","j","s","v","s","m","v","k","s"]
-mmm = group' [3, 4, 6,67,7] -- returns [[3],[4],[6],[67],[7]]
+b9 = group' "slkjsvsmvks" -- returns ["s","l","k","j","s","v","s","m","v","k","s"]
+b9b = group' [3, 4, 6,67,7] -- returns [[3],[4],[6],[67],[7]]
 
 group' [] = []
 group' (a:as)
@@ -458,14 +425,14 @@ group' (a:as)
 
 --pembatas
 
-nnn = splitAt' 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
+b10 = splitAt' 3 "winkjsdfwf" -- returns ("win","kjsdfwf")
 
 splitAt' i b = (take' i b, drop' i b)
 
 --pembatas
 
-ooo = partition' (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
-ppp = partition' (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])
+b11 = partition' (\x -> x>7) [2,3,3,3,4,5,56,56] -- returns ([56,56],[2,3,3,3,4,5])
+b11b = partition' (\x -> x<7) [2,3,3,3,4,5,56,56] -- returns ([2,3,3,3,4,5],[56,56])
 
 partition' f x = [(filter' f x), (invFilter' f x)]
 
@@ -476,8 +443,7 @@ invFilter' f (x:xs)
 
 --pembatas
 
-qqq = replicate' 2 4 -- returns [4,4]
-rrr = replicate' 10 'f' -- returns "ffffffffff"
+b12 = replicate' 10 'f' -- returns "ffffffffff"
 
 replicate' a b
  | a < 1 = []
@@ -485,7 +451,7 @@ replicate' a b
 
 --pembatas
 
-pp = words' " wisnu oktobrie putra    subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
+b13 = words' " wisnu oktobrie putra    subekti" -- returns ["wisnu","oktobrie","putra","subekti"]
 
 aword [] = []
 aword (w:ws)
@@ -510,7 +476,7 @@ repWthSpace' (x:xs)
 
 --pembatas
 
-qq = lines' "\nwisnu\nina\n\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
+b14 = lines' "\nwisnu\nina\n\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
 
 aline [] = []
 aline (w:ws)
@@ -533,13 +499,7 @@ lines' x
 
 -- foldl ini bener-bener time wasting banget... ga ketemu2 coba.
 
-fung = (\ x y -> x)
-fungsi = (\ x y -> x)
-listnya = "qs"
-tes [] = []
-tes (d:ds) = (foldl fungsi d listnya):(tes ds)
-
-wer = tes [(-3), (-2), (-1), 0, 1, 2, 3]
+-- iseng-iseng bikin indexOf, bisa, tapi nggak kepake.
 
 indexOf a [] = -1
 indexOf a (d:ds)

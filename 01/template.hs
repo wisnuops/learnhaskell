@@ -300,11 +300,17 @@ ss = unwords' ["wisnu","oktobrie","putra","subekti"] -- returns "wisnu oktobrie 
 
 -- 37. pembatas
 
-takeWhile' x = x
+takeWhile' f [] = []
+takeWhile' f (x:xs)
+  | (f x) = x:(takeWhile' f xs)
+  | otherwise = []
 
 -- 38. pembatas
 
-dropWhile' x = x
+dropWhile' f [] = []
+dropWhile' f (x:xs)
+  | (f x) = dropWhile' f xs
+  | otherwise = x:xs
 
 -- 39. pembatas
 
@@ -475,19 +481,19 @@ pp = words' " wisnu oktobrie putra    subekti" -- returns ["wisnu","oktobrie","p
 aword [] = []
 aword (w:ws)
   | w == ' ' = aword ws
-  | otherwise = (takeWhile (\x -> x > ' ') (w:ws))
+  | otherwise = (takeWhile' (\x -> x /= ' ') (w:ws))
 
 sisaword [] = []
 sisaword (w:ws)
   | w == ' ' = sisaword ws
-  | otherwise = (dropWhile (\x -> x > ' ') (w:ws))
+  | otherwise = (dropWhile' (\x -> x /= ' ') (w:ws))
 
 words' [] = []
-words' x
- | aword x == [] = []
- | sisaword x == [] = [aword x]
- | otherwise = (aword x):(words' (sisaword x))
-
+words' a
+ | aword y == [] = []
+ | sisaword y == [] = [aword y]
+ | otherwise = (aword y):(words' (sisaword y))
+ where y = filter (\x -> x >= ' ') a
 --pembatas
 
 qq = lines' "\nwisnu\nina\n\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sima"]
@@ -495,12 +501,12 @@ qq = lines' "\nwisnu\nina\n\nzhuge\nsima" -- returns ["wisnu","ina","zhuge","sim
 aline [] = []
 aline (w:ws)
   | w == '\n' = aline ws
-  | otherwise = (takeWhile (\x -> x > '\n') (w:ws))
+  | otherwise = (takeWhile' (\x -> x /= '\n') (w:ws))
 
 sisaline [] = []
 sisaline (w:ws)
   | w == '\n' = sisaline ws
-  | otherwise = (dropWhile (\x -> x > '\n') (w:ws))
+  | otherwise = (dropWhile' (\x -> x /= '\n') (w:ws))
 
 lines' [] = []
 lines' x

@@ -45,7 +45,7 @@ fst' (a, b) = a
 
 snd' (a, b) = b
 
--- 6. Map is a function that maps a list itu another list by using a function.
+-- 6. Map is a function that maps a list into another list by using a function.
 -- input function and a list, output list.
 
 map' f [] = []
@@ -65,7 +65,7 @@ filter' f (x:xs)
 
 no7 = filter' (\ x -> x>0) [4, 3, (-2), (-1), 0, 1, 2] -- returns [4, 3, 1, 2]
 
--- 8. delete a datum from a list
+-- 8. delete a datum (or data) from a list
 -- input the datum, output list
 
 delete' a [] = []
@@ -76,7 +76,7 @@ delete' a (x:xs)
 no8 = delete' 2 [2, 3, 5, 2, 1, 1]
 no8b = delete' 1 [2, 3, 4, 2, 1, 3]
 
--- 9. create deleteAll
+-- 9. create deleteAll, sumpah ini fungsi nggak penting abis
 
 deleteAll a = []
 
@@ -93,8 +93,8 @@ foldl1'' f (a:as)
   | otherwise = (f (foldl1'' f as) x)
   where (x:xs) = as
 
--- 12. zip
--- this one is faster but consumes larger memory
+-- 12. zip / creating two versions of zip.
+-- The first one is faster but consumes larger memory (for several input that are tested)
 
 zip'' x y
  | x == [] || y == [] = []
@@ -102,7 +102,8 @@ zip'' x y
  where (a:as) = x
        (b:bs) = y
 
--- this one is slower but consumes little memory
+-- The second one is slower but consumes little memory (for several input that are tested)
+
 zip' a [] = []
 zip' [] b = []
 zip' (a:as) (b:bs) = (a,b):(zip'' as bs)
@@ -117,12 +118,12 @@ zipWith' f (a:as) (b:bs) = (f a b):(zipWith' f as bs)
 
 s = zipWith' (\ x y -> 2*x+y) [1,2] [4, 5] -- returns [6, 9] because 2*1+4=6 and 2*2+5= 9
 
--- 14. Ini works, tapi type-nya kenapa nggak harus Int yah? Beda sama aslinya.
+-- 14. Ini works, tapi type-nya kenapa nggak Int yah? Beda sama aslinya.
 
 nth' (a:as) 0 = a
 nth' (a:as) n = nth' as (n-1)
 
--- 15. pembatas
+-- 15. Mirip kayak fold, cuma setiap prosesnya dihitung dan dikeluarin semua dalam bentuk list.
 
 scanl' f x [] = [x]
 scanl' f x (b:bs) = x:(scanl' f (f x b) bs)
@@ -496,8 +497,6 @@ lines' x
 -- First Assignment
 -- Reimplement Haskell function
 -- DON'T USE GOOGLE
-
--- foldl ini bener-bener time wasting banget... ga ketemu2 coba.
 
 -- iseng-iseng bikin indexOf, bisa, tapi nggak kepake.
 

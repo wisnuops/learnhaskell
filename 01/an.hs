@@ -506,6 +506,8 @@ indexOf a (d:ds)
  | d /= a = 1 + (indexOf a ds)
  | otherwise = 0
 
+-- Bikin swap' jugua. Nyaris pakai ini untuk sort. Tapi nggak perlu ternyata.
+
 swap' a b h = (take mi h) ++ [(nth' h ma)] ++ (take (ma-mi-1) (drop (mi+1) h)) ++ [(nth' h mi)] ++ (drop (ma+1) h)
  where ma = max' a b
        mi = min' a b

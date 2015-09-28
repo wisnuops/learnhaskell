@@ -352,7 +352,7 @@ no43 = zipWith3 (\ x y z -> x+y+z) [9, 8, 7] [6, 5, 4] [3, 2, 1] -- returns [18,
 
 -- 1.b
 
-b1 = nub "sdskdjls" -- reutrns "sdkjl"
+b1 = nub' "sdskdjls" -- reutrns "sdkjl"
 
 nub' [] = []
 nub' (x:xs)

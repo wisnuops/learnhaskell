@@ -65,20 +65,26 @@ filter' f (x:xs)
 
 no7 = filter' (\ x -> x>0) [4, 3, (-2), (-1), 0, 1, 2] -- returns [4, 3, 1, 2]
 
--- 8. delete a datum (or data) from a list
+-- 8. delete a datum from a list
 -- input the datum, output list
 
 delete' a [] = []
 delete' a (x:xs)
- | (a == x) = (delete' a xs)
+ | (a == x) = xs
  | otherwise = x:(delete' a xs)
 
 no8 = delete' 2 [2, 3, 5, 2, 1, 1]
 no8b = delete' 1 [2, 3, 4, 2, 1, 3]
 
--- 9. create deleteAll, sumpah ini fungsi nggak penting abis
+-- 9. create deleteAll
 
-deleteAll a = []
+deleteAll' a [] = []
+deleteAll' a (x:xs)
+ | (a == x) = (deleteAll' a xs)
+ | otherwise = x:(deleteAll' a xs)
+
+no9 = deleteAll' 2 [2, 3, 5, 2, 1, 1]
+no9b = deleteAll' 1 [2, 3, 4, 2, 1, 3]
 
 -- 10. pembatas
 
@@ -351,7 +357,7 @@ b1 = nub "sdskdjls" -- reutrns "sdkjl"
 nub' [] = []
 nub' (x:xs)
   | xs == [] = [x]
-  | (elem' x xs) = x:(nub' (delete' x xs))
+  | (elem' x xs) = x:(nub' (deleteAll' x xs))
   | otherwise = x:(nub' xs)
 
 --pembatas

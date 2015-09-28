@@ -7,7 +7,16 @@ import Data.List
 -- 1. The null function is for checking whether a list is an empty list or not.
 -- input list, output boolean
 
-null' x = (x == [])
+-- null' x = (x == []) -- <- I just found out this is wrong because it requires the x to be comparable.
+-- compare :t null with :t (==), and there is a difference between the two
+-- null doesn't requre the input to be comparable.
+-- null [fx] for example (fx is a function), returns False.
+-- while [fx] == [] returns error.
+
+-- This is the right way to define null function:
+
+null' [] = True
+null' _ = False
 
 -- 2. the take function is for taking the data number n, n+1, and so on in a list.
 -- input integer, list; output list

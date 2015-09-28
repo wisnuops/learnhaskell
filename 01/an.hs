@@ -7,13 +7,14 @@ import Data.List
 -- 1. The null function is for checking whether a list is an empty list or not.
 -- input list, output boolean
 
--- null' x = (x == []) -- <- I just found out this is wrong because it requires the x to be comparable.
+-- null' x = (x == []) 
+-- ^ I just found out this is wrong because it requires the x to be comparable.
 -- compare :t null with :t (==), and there is a difference between the two
 -- null doesn't requre the input to be comparable.
 -- null [fx] for example (fx is a function), returns False.
 -- while [fx] == [] returns error.
 
--- This is the right way to define null function:
+-- Below is the right way to define null function:
 
 null' [] = True
 null' _ = False
@@ -521,7 +522,7 @@ indexOf a (d:ds)
  | d /= a = 1 + (indexOf a ds)
  | otherwise = 0
 
--- Bikin swap' jugua. Nyaris pakai ini untuk sort. Tapi nggak perlu ternyata.
+-- Bikin swap' juga. Nyaris pakai ini untuk sort. Tapi nggak perlu ternyata.
 
 swap' a b h = (take mi h) ++ [(nth' h ma)] ++ (take (ma-mi-1) (drop (mi+1) h)) ++ [(nth' h mi)] ++ (drop (ma+1) h)
  where ma = max' a b

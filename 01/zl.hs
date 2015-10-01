@@ -47,3 +47,31 @@ empat 1 = fungsiP 1
 empat x = fungsiP x + empat (x-1)
 
 no4 = empat 1000 -- Hasilnya 122734093
+
+-- 05 Fibonacci
+
+fib 1 = 1
+fib 2 = 1
+fib n = fib (n-1) + fib (n-2)
+
+no5 = fib 30 -- Hasilnya 832040
+
+-- 06 kinematika
+
+fungsiS t = map (\t -> 12*t + 120) t
+
+-- Hasilnya [132,144,156,168,180,192,204,216,228,240]
+
+-- 07 ekonomi mikro
+
+fungsiR n = 15000000*n
+
+fungsiE n = 75000000*n
+
+revenue 1 = fungsiR 1
+revenue n = fungsiR n + revenue (n-1)
+
+expense 1 = fungsiE 1
+expense n = fungsiE n + expense (n-1)
+
+profit = revenue 12 - expense 4 -- Hasilnya 420000000

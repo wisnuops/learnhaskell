@@ -40,15 +40,10 @@ factorial 0 = 1
 factorial n = n*factorial (n-1)
 
 fungsiP x
-  | x < 10 = factorial x
-  | x < 100 = factorial (mod x 10) + factorial (div x 10)
-  | x < 1000 = factorial (mod x 10) + factorial (mod (div x 10) 10) + factorial (div x 100)
-  | x < 10000 = factorial (mod x 10) + factorial (mod (div x 10) 10) + factorial (mod (div x 100) 10) + factorial (div x 1000)
-  | otherwise = 0
+  | x == 0 = 0
+  | otherwise = fungsiP (div x 10) + factorial (mod x 10)
 
 empat 1 = fungsiP 1
 empat x = fungsiP x + empat (x-1)
 
 no4 = empat 1000 -- Hasilnya 122734093
-
--- testing = fungsiP 1 + fungsiP 2 + fungsiP 3 + fungsiP 4 + fungsiP 5 + fungsiP 6 + fungsiP 7

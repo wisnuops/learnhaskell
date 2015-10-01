@@ -100,3 +100,11 @@ no10 = jumlahin 100000 -- Hasilnya 166671666700000
 -- 11 habis dibagi 210 (2*3*5*7)
 
 no11 = (fungsiPb (div 100000000 210))*210 -- Hasilnya 23809526190450
+
+-- 12 urutan buku
+
+no12 = div (factorial 50) (factorial 20)
+
+-- 13 Fibonacci 100
+
+fibo n = (1 / sqrt 5) * ((1+ sqrt 5) / 2)^n - (1 / sqrt 5) *((1-sqrt 5) / 2)^n

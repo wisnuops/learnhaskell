@@ -75,3 +75,28 @@ expense 1 = fungsiE 1
 expense n = fungsiE n + expense (n-1)
 
 profit = revenue 12 - expense 4 -- Hasilnya 420000000
+
+--- 08 prime numbers
+
+prima (a:as)
+  | a == 1 = prima as
+  | as == [] = [a]
+  | otherwise = a : prima (filter (\x -> (mod x a /= 0)) as)
+
+no8 = product (prima [1..100]) -- Hasilnya 2305567963945518424753102147331756070
+
+-- 09 jumlah semua x_i
+
+no9 = sum [1..100] -- Hasilnya 5050
+
+-- 10 triangle numbers
+
+fungsiPb n = div ((1+n)*n) 2
+jumlahin 1 = 1
+jumlahin n = fungsiPb n + jumlahin (n-1)
+
+no10 = jumlahin 100000 -- Hasilnya 166671666700000
+
+-- 11 habis dibagi 210 (2*3*5*7)
+
+no11 = (fungsiPb (div 100000000 210))*210 -- Hasilnya 23809526190450

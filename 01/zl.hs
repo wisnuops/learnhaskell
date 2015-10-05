@@ -108,3 +108,14 @@ no12 = div (factorial 50) (factorial 20)
 -- 13 Fibonacci 100
 
 fibo n = (1 / sqrt 5) * ((1+ sqrt 5) / 2)^n - (1 / sqrt 5) *((1-sqrt 5) / 2)^n
+
+-- 14 prima 10.000
+
+no14 = sum (prima [1..10000]) -- Hasilnya 5736396
+
+-- 15 trimonacci T(n)
+
+trimonacci 1 = 1
+trimonacci 2 = 1
+trimonacci 3 = 1
+trimonacci n = trimonacci (n-1) + trimonacci (n-2) + trimonacci (n-3)
